@@ -4,22 +4,23 @@ from app import message_hendler
 from flask import Flask, request, json
 import vk
 
+
 # @app.route('/')
 # @app.route('/index')
 # def index():
 #     return ('hello from flask!')
 
-    
+
 @app.route('/group-app')
 def group_app():
     return '2+2=5 =/'
-    
-    
+
+
 @app.route('/', methods=['POST'])
 def processing():
-    #Распаковываем json из пришедшего POST-запроса
+    # Распаковываем json из пришедшего POST-запроса
     data = json.loads(request.data)
-    #Вконтакте в своих запросах всегда отправляет поле типа
+    # Вконтакте в своих запросах всегда отправляет поле типа
     if 'type' not in data.keys():
         return 'not vk'
     if data['type'] == 'confirmation':
@@ -32,5 +33,3 @@ def processing():
         api.messages.send(access_token=token, user_id=str(user_id), message=mess)
         # Сообщение о том, что обработка прошла успешно
         return 'ok'
-        
-        
